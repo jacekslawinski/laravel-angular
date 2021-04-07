@@ -1,0 +1,43 @@
+version: '2'
+networks:
+  backend:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
+services:
+  mysql:
+    build:
+      context: ./docker/mysql
+    container_name: mysql
+    env_file: .env
+    environment:
+      - MYSQL_DATABASE=$DB_DATABASE
+      - MYSQL_PASSWORD=$DB_PASSWORD
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      backend:
+        ipv4_address: 172.28.1.1
+  apache_php:
+    build:
+      context: ./docker/apache2
+      args:
+        USER_UID: $DOCKER_USER_UID
+        USER_GID: $DOCKER_USER_GID
+        USER_NAME: $DOCKER_USER_NAME        
+    container_name: apache_php
+    working_dir: /home/project
+    ports:
+      - '8080:80'
+    networks:
+      backend:
+        ipv4_address: 172.28.1.2
+    volumes:
+      - './:/home/project'
+  nodejs:
+    build:
+      context: ./docker/nodejs
+    container_name: nodejs
+    working_dir: /home/project
+    volumes:
+      - './:/home/project'

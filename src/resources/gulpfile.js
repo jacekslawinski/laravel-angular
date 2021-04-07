@@ -22,7 +22,7 @@ gulp.task('material', function(){
 });
 
 gulp.task('ngbuild', function (cb) {
-    return exec('ng build --prod --localize', function (err, stdout, stderr) {
+    return exec('./node_modules/.bin/ng build --prod', function (err, stdout, stderr) {
       console.log(stdout);
       console.log(stderr);
       cb(err);
@@ -30,7 +30,7 @@ gulp.task('ngbuild', function (cb) {
 });
 
 gulp.task('ngbuilddev', function (cb) {
-    exec('ng build', function (err, stdout, stderr) {
+    exec('./node_modules/.bin/ng build', function (err, stdout, stderr) {
       console.log(stdout);
       console.log(stderr);
       cb(err);

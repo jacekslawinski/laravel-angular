@@ -3,6 +3,7 @@
 namespace App\Data\Models\Hardware;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Data\Models\Hardware\System

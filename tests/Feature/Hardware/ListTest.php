@@ -28,6 +28,7 @@ class ListTest extends ApiTestCase
         factory(Hardware::class, 2)->create();
         $response = $this->getRequest($this->apiRoute, [], $this->getBearerHeader($token));
         $response->assertOk();
+
         $response->assertJsonStructure([
             'message',
             'result' => [
