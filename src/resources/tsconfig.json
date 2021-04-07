@@ -37,5 +37,5 @@
 		"noUnusedLocals": true,
 		"noImplicitThis": true,
 		"noImplicitAny": true
-  }
+  } 
 }

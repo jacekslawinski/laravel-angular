@@ -17,6 +17,10 @@ Autoryzacja API - JWT token
 Dane do logowania:  
 email: js@jacekslawinski.pl  
 hasło: admin  
+
+## Uruchomienie testów
+
+`./phpunit.sh` - w kontenerze apache_php  
   
 ## Autor
 

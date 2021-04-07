@@ -22,7 +22,7 @@ class HardwaresTableSeeder extends Seeder
             'updated_at' => Carbon::now(),
         ]);
         DB::table('hardwares')->insertOrIgnore([
-            'id' => 1,
+            'id' => 2,
             'name' => 'Dell Inspiron',
             'serial_number' => '6565696969554',
             'production_year' => 2019,

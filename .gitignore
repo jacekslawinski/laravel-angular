@@ -1,13 +1,8 @@
-/.env
 /.project
 /.buildpath
 /.settings/*
 /vendor/*
 /src/resources/node_modules/*
 /TelosysTools/*
-/storage/framework/*
-/storage/framework/logs/*
-/storage/logs/*
+/storage/logs/*.log
 /bootstrap/cache/*.php
-/spreadshet.json
-/.phpunit.result.cache

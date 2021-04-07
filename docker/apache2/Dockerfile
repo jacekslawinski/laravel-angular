@@ -5,11 +5,13 @@ ARG USER_NAME
 RUN addgroup --gid ${USER_GID} ${USER_NAME}
 RUN adduser --uid ${USER_UID} --gid ${USER_GID} --shell /bin/bash ${USER_NAME}
 RUN a2enmod rewrite
+RUN curl -fsSL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get update && apt-get install -y \
     bash \
     git \
     libzip-dev \
     netcat \
+    nodejs \
     zip
 #RUN pecl install xdebug-3.0.3 && docker-php-ext-enable xdebug
 RUN docker-php-ext-install \

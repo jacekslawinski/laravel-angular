@@ -17,7 +17,7 @@
         "sourceLocale": "en",
         "locales": {
           "pl": "js/i18n/messages.pl.xlf"
-          }
+        }
       },
       "architect": {
         "build": {
@@ -30,10 +30,10 @@
             "polyfills": "./js/polyfills.ts",
             "tsConfig": "./js/tsconfig.app.json",
             "scripts": [
-              "node_modules/document-register-element/build/document-register-element.js"        
+              "node_modules/document-register-element/build/document-register-element.js"
             ],
             "deleteOutputPath": false
-            },
+          },
           "configurations": {
             "production": {
               "fileReplacements": [
@@ -150,5 +150,8 @@
       }
     }
   },
-  "defaultProject": "angular"
+  "defaultProject": "angular",
+  "cli": {
+    "analytics": "6940677d-bc9b-4782-b5e7-1539a4eb64a1"
+  }
 }
