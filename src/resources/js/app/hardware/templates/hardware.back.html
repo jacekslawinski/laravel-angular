@@ -9,10 +9,10 @@
             <div class="dialog-content">
                 <div fxLayout="row" fxLayoutAlign="space-between" >
                     <div fxFlex="78">
-                        <mat-form-field>
-                            <label for="user">
+                        <mat-form-field appearance="legacy">
+                            <mat-label for="user">
                                 <span i18n>From user</span>
-                            </label>
+                            </mat-label>
                             <input matInput formControlName="user" [matAutocomplete]="autoUser">
                             <mat-autocomplete #autoUser="matAutocomplete" [displayWith]="userFullName" >
                                 <mat-option *ngFor="let user of userList" [value]="user">
@@ -22,21 +22,21 @@
                         </mat-form-field>
                     </div>
                     <div fxFlex="20">
-                        <mat-form-field>
-                            <label for="date">
+                        <mat-form-field appearance="legacy">
+                            <mat-label for="date">
                                 <span i18n>Date</span>
                                 <span class="error-message" *ngIf="noValidate('date')"></span>
-                            </label>
+                            </mat-label>
                             <input matInput [matDatepicker]="picker_date" formControlName="date">
                             <mat-datepicker-toggle matSuffix [for]="picker_date"></mat-datepicker-toggle>
                             <mat-datepicker #picker_date disabled="false"></mat-datepicker>
                         </mat-form-field>
                     </div>
                 </div>
-                <mat-form-field>
-                    <label for="remarks">
+                <mat-form-field appearance="legacy">
+                    <mat-label for="remarks">
                         <span i18n>Remarks</span>
-                    </label>
+                    </mat-label>
                     <input matInput formControlName="remarks" />
                 </mat-form-field>
             </div>

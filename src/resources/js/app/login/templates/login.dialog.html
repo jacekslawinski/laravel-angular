@@ -8,21 +8,21 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">    
         <div mat-dialog-content>
             <div class="dialog-content">
-                <mat-form-field class="fullwidth">
-                    <label i18n>Email</label>
+                <mat-form-field class="fullwidth" appearance="legacy">
+                    <mat-label i18n>Email</mat-label>
                     <input matInput formControlName="email">
                 </mat-form-field>
-                        <mat-form-field class="fullwidth" style="align-items:flex-end;">
-                            <label i18n>Password</label>
-                            <input matInput formControlName="password" [type]="passwordVisible ? 'text' : 'password'">
-                            <button matSuffix mat-icon-button>
-                              <fa-icon [icon]="passwordVisible ? faEyeSlashIcon : faEyeIcon" (click)="togglePasswordVisibility()"></fa-icon>
-                            </button>
-                        </mat-form-field>
+                <mat-form-field class="fullwidth" appearance="legacy">
+                    <mat-label i18n>Password</mat-label>
+                    <input matInput formControlName="password" [type]="passwordVisible ? 'text' : 'password'">
+                    <button matSuffix mat-icon-button>
+                        <fa-icon [icon]="passwordVisible ? faEyeSlashIcon : faEyeIcon" (click)="togglePasswordVisibility()"></fa-icon>
+                    </button>
+                </mat-form-field>
             </div>
         </div>
         <div mat-dialog-actions align="end">
-            <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid" i18n>Log in</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid" i18n>Login</button>
         </div>
     </form>
 </div>

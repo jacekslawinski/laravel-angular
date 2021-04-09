@@ -9,30 +9,30 @@
             <div class="dialog-content">
                 <div fxLayout="row" fxLayoutAlign="space-between" >   
                     <div fxFlex="47">
-                        <mat-form-field>
-                            <label for="name">
+                        <mat-form-field appearance="legacy">
+                            <mat-label for="name">
                                 <span i18n>Name</span>
                                 <span class="error-message" *ngIf="noValidate('name')" i18n> (required)</span>
-                            </label>
+                            </mat-label>
                             <input matInput formControlName="name" />
                         </mat-form-field>                    
                     </div>
                     <div fxFlex="47">
-                        <mat-form-field>
-                            <label for="serial_number">
+                        <mat-form-field appearance="legacy">
+                            <mat-label for="serial_number">
                                 <span i18n>Serial number</span>
                                 <span class="error-message" *ngIf="noValidate('serial_number')" i18n> (required)</span>
-                            </label>
+                            </mat-label>
                             <input matInput formControlName="serial_number" />
                         </mat-form-field>                    
                     </div>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="space-between" >
                     <div fxFlex="74">
-                        <mat-form-field>
-                            <label for="system">
+                        <mat-form-field appearance="legacy">
+                            <mat-label for="system">
                                 <span i18n>System</span>
-                            </label>
+                            </mat-label>
                             <input matInput formControlName="system" [matAutocomplete]="autoSystem">
                             <mat-autocomplete #autoSystem="matAutocomplete" [displayWith]="systemName" >
                                 <mat-option *ngFor="let system of systemList" [value]="system">
@@ -42,11 +42,11 @@
                         </mat-form-field>
                     </div>
                     <div fxFlex="20">
-                        <mat-form-field>
-                            <label for="production_year">
+                        <mat-form-field appearance="legacy">
+                            <mat-label for="production_year">
                                 <span i18n>Production year</span>
                                 <span class="error-message" *ngIf="noValidate('production_year')" i18n> (required)</span>
-                            </label>
+                            </mat-label>
                             <input matInput formControlName="production_year" />
                         </mat-form-field>
                     </div>

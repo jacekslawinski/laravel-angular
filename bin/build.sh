@@ -28,5 +28,4 @@ echo "********** angular compilation starts **********"
 ./node_modules/.bin/gulp build
 echo "********** angular application started **********"
 echo "********** DONE **********"
-echo "********** DONE **********"
 tail -f /dev/null 
