@@ -34,11 +34,3 @@ services:
         ipv4_address: 172.28.1.2
     volumes:
       - './:/home/project'
-  nodejs:
-    build:
-      context: ./docker/nodejs
-    user: $DOCKER_USER_UID:$DOCKER_USER_GID
-    container_name: nodejs
-    working_dir: /home/project
-    volumes:
-      - './:/home/project'
