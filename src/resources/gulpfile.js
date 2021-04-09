@@ -4,7 +4,7 @@ var exec = require('child_process').exec;
 
 //style paths
 var sassFile = './sass/app.scss',
-    cssDest = '../../public/css';
+    cssDest = '../../public/css',
     materialTheme = './node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
 
 gulp.task('styles', function(){

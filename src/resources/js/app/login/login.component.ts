@@ -10,6 +10,10 @@ import {
 } from "@angular/forms";
 import { AuthService } from '@app/jwt/auth/auth.service';
 import { Router } from '@angular/router';
+import {
+    faEye,
+    faEyeSlash
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     template: ''
@@ -41,6 +45,9 @@ export class LoginDialog
 {
 
     public loginForm: FormGroup;  
+    public faEyeIcon = faEye;
+    public faEyeSlashIcon = faEyeSlash;
+    public passwordVisible = false;
    
     constructor(
         private formBuilder: FormBuilder,
@@ -67,4 +74,8 @@ export class LoginDialog
                  }
              });
     }
+        
+    togglePasswordVisibility() {
+        this.passwordVisible = !this.passwordVisible;
+    }    
 }

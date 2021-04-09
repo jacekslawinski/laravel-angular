@@ -24,7 +24,7 @@ services:
       args:
         USER_UID: $DOCKER_USER_UID
         USER_GID: $DOCKER_USER_GID
-        USER_NAME: $DOCKER_USER_NAME        
+        USER_NAME: $DOCKER_USER_NAME
     container_name: apache_php
     working_dir: /home/project
     ports:
@@ -34,4 +34,11 @@ services:
         ipv4_address: 172.28.1.2
     volumes:
       - './:/home/project'
-
+  nodejs:
+    build:
+      context: ./docker/nodejs
+    user: $DOCKER_USER_UID:$DOCKER_USER_GID
+    container_name: nodejs
+    working_dir: /home/project
+    volumes:
+      - './:/home/project'

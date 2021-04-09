@@ -26,7 +26,7 @@
                 </ng-container>                
                 <ng-container matColumnDef="system_name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>System name</th>
-                    <td mat-cell *matCellDef="let hardware">{{getSystemName(hardware)}}</td>
+                    <td mat-cell *matCellDef="let hardware">{{hardware.system_name}}</td>
                 </ng-container>
                 <ng-container matColumnDef="serial_number">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Serial number</th>
@@ -38,7 +38,7 @@
                 </ng-container>
                 <ng-container matColumnDef="user_fullname">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>User fullname </th>
-                    <td mat-cell *matCellDef="let hardware" class="align-center">{{getUserFullname(hardware)}}</td>
+                    <td mat-cell *matCellDef="let hardware" class="align-center">{{hardware.user_fullname}}</td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

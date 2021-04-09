@@ -55,7 +55,7 @@ export class HardwareComponent implements AfterViewInit
         'production_year',
         'user_fullname'
     ];
-    public hardwareList = new MatTableDataSource<Hardware>();
+    public hardwareList = new MatTableDataSource<any>();
     private systemList: System[];
     public userList: User[];
     private isSubmitted: BehaviorSubject<any>;
@@ -79,7 +79,13 @@ export class HardwareComponent implements AfterViewInit
         this.hardwareService
             .get()
             .subscribe((result: [Hardware[], System[], User[]]) => {
+                this.systemList = result[1];
+                this.userList = result[2];                
                 this.hardwareList.data = result[0];
+                this.hardwareList.data.forEach(hardware => {
+                    hardware.system_name = this.getSystemName(hardware);
+                    hardware.user_fullname = this.getUserFullname(hardware);
+                });
                 this.hardwareList.sort = this.sort;
                 this.hardwareList.sortData = this.sortingService.sort;
                 this.hardwareList.filterPredicate = (hardware: Hardware, filter: string): boolean => {
@@ -89,8 +95,6 @@ export class HardwareComponent implements AfterViewInit
                         this.getSystemName(hardware).toLowerCase().indexOf(filter) >= 0 ||
                         this.filterUserName(hardware, filter));
                 };
-                this.systemList = result[1];
-                this.userList = result[2];
             });
     }
     

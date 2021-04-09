@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent, LoginDialog } from './login.component';
 import { CommonModule } from "@angular/common";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
     imports: [ 
@@ -16,7 +18,9 @@ import { CommonModule } from "@angular/common";
        ReactiveFormsModule,
        MatInputModule,
        MatButtonModule,
-       MatDialogModule
+       MatDialogModule,
+       FontAwesomeModule,
+       FlexLayoutModule       
        ],
     declarations: [
         LoginComponent,
