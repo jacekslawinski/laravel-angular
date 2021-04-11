@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     bash \
     git \
     libzip-dev \
-    netcat \
+#    netcat \
     nodejs \
     zip
 #RUN pecl install xdebug-3.0.3 && docker-php-ext-enable xdebug

@@ -13,10 +13,13 @@ Autoryzacja API - JWT token
 
 `localhost:8080`  
 
-
 Dane do logowania:  
 email: js@jacekslawinski.pl  
 hasło: admin  
+
+## Dokumentacja (swagger)
+
+`localhost:8085`  
 
 ## Uruchomienie testów
 

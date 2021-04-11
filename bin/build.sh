@@ -1,31 +1,52 @@
 #!/bin/sh
-echo "********** service apache2 starts **********"
+echo "***********************************************"
+echo "* STARTS: service apache2                     *"
+echo "***********************************************"
 service apache2 restart
-echo "********** service apache2 started **********"
+echo "***********************************************"
+echo "* RUNS: service apache2                       *"
+echo "***********************************************"
 cd /home/project
-echo "********** composer starts install packages **********"
+echo "***********************************************"
+echo "* STARTS composer install                     *"
+echo "***********************************************"
 composer install
+echo "***********************************************"
+echo "* ENDS: composer install                      *"
+echo "***********************************************"
 chmod -R 777 storage
 chmod -R 777 bootstrap/cache
-echo "********** composer packages installed **********"
-echo "********** laravel migration starts **********"
-until nc -z -v -w30 172.28.1.1 3306
-do
-  echo "Waiting for database connection..."
-  # wait for 5 seconds before check again
-  sleep 5
-done
+echo "***********************************************"
+echo "* STARTS: laravel migration                   *"
+echo "***********************************************"
 php artisan migrate
-echo "********** laravel database migrated **********"
-echo "********** laravel seeder starts **********"
+echo "***********************************************"
+echo "* ENDS: laravel migration                     *"
+echo "***********************************************"
+echo "***********************************************"
+echo "* STARTS: laravel seeder                      *"
+echo "***********************************************"
 php artisan db:seed
-echo "********** laravel database seeded **********"
-echo "********** npm install starts **********"
+echo "***********************************************"
+echo "* ENDS: laravel seeder                        *"
+echo "***********************************************"
+echo "***********************************************"
+echo "* STARTS: npm install                         *"
+echo "***********************************************"
 cd /home/project/src/resources
 npm i
-echo "********** npm installed **********"
-echo "********** angular compilation starts **********"
+echo "***********************************************"
+echo "* ENDS: npm install                           *"
+echo "***********************************************"
+echo "***********************************************"
+echo "* STARTS: gulp build                          *"
+echo "***********************************************"
 ./node_modules/.bin/gulp build
-echo "********** angular application started **********"
-echo "********** DONE **********"
+echo "***********************************************"
+echo "* ENDS: gulp build                            *"
+echo "***********************************************"
+echo
+echo "***********************************************"
+echo "*                DONE                         *"
+echo "***********************************************"
 tail -f /dev/null 
