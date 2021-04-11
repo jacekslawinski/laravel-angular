@@ -16,7 +16,7 @@
                             <input matInput formControlName="user" [matAutocomplete]="autoUser">
                             <mat-autocomplete #autoUser="matAutocomplete" [displayWith]="userFullName" >
                                 <mat-option *ngFor="let user of userList" [value]="user">
-                                    {{user.firstname}}&nbsp;{{user.lastname}}
+                                    {{user.getFullname()}}
                                 </mat-option>
                             </mat-autocomplete>
                         </mat-form-field>

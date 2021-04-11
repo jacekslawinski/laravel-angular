@@ -17,7 +17,7 @@ Route::view('/', 'web::index', ['baseRef' => '/']);
 Route::view('/login', 'web::index', ['baseRef' => '/']);
 
 Route::view('/hardware', 'web::index', ['baseRef' => '/']);
-Route::view('/software', 'web::index', ['baseRef' => '/']);
+Route::view('/system', 'web::index', ['baseRef' => '/']);
 Route::view('/user', 'web::index', ['baseRef' => '/']);
 Route::view('/history', 'web::index', ['baseRef' => '/']);
 

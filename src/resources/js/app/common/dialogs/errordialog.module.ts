@@ -1,18 +1,26 @@
-import { NgModule } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { ErrorDialog } from './errordialog';
+import {
+    NgModule
+} from '@angular/core';
+import {
+    MatDialogModule
+} from '@angular/material/dialog';
+import {
+    MatButtonModule
+} from '@angular/material/button';
+import {
+    ErrorDialog
+} from './errordialog';
 
 @NgModule({
-    imports: [ 
-       MatButtonModule,
-       MatDialogModule,
-       ],
+    imports: [
+        MatButtonModule,
+        MatDialogModule,
+    ],
     declarations: [
-       ErrorDialog
-       ],
+        ErrorDialog
+    ],
     entryComponents: [
-       ErrorDialog
-       ]
+        ErrorDialog
+    ]
 })
-export class ErrorDialogModule { }
+export class ErrorDialogModule {}

@@ -1,4 +1,4 @@
-import { 
+import {
     Component,
     Inject,
     AfterViewInit,
@@ -9,8 +9,12 @@ import {
     MatDialogRef,
     MAT_DIALOG_DATA
 } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import {
+    MatTableDataSource
+} from '@angular/material/table';
+import {
+    MatSort
+} from '@angular/material/sort';
 import {
     FormBuilder,
     FormGroup,
@@ -20,52 +24,64 @@ import {
     faEdit,
     faTrash
 } from '@fortawesome/free-solid-svg-icons';
-import { BehaviorSubject } from 'rxjs';
-import { DialogService } from '@app/common/dialogs/dialog.service';
-import { APP_SELECTORS } from '@app/common/appsettings/appsettings';
-import { SortingService } from '@app/common/sorting/sorting.service';
-import { UserService } from './user.service';
-import { User } from './user.model';
+import {
+    BehaviorSubject
+} from 'rxjs';
+import {
+    DialogService
+} from '@app/common/dialogs/dialog.service';
+import {
+    APP_SELECTORS
+} from '@app/common/appsettings/appsettings';
+import {
+    SortingService
+} from '@app/common/sorting/sorting.service';
+import {
+    UserService
+} from './user.service';
+import {
+    User
+} from './user.model';
 
 @Component({
     selector: APP_SELECTORS.USER,
     templateUrl: './templates/user.list.html'
 })
-export class UserComponent implements AfterViewInit
-{
+export class UserComponent implements AfterViewInit {
     public updateIcon = faEdit;
     public deleteIcon = faTrash;
-    private isSubmitted: BehaviorSubject<any>;
-    private dialogRef: MatDialogRef<UserDialog>;
+    private isSubmitted: BehaviorSubject < any > ;
+    private dialogRef: MatDialogRef < UserDialog > ;
     public displayedColumns: string[] = [
         'action',
         'firstname',
         'lastname',
         'email',
     ];
-    public userList = new MatTableDataSource<User>();
+    public userList = new MatTableDataSource < User > ();
 
-    @ViewChild(MatSort, {static: false}) sort: MatSort;
+    @ViewChild(MatSort, {
+        static: false
+    }) sort: MatSort;
 
     constructor(
         private dialogService: DialogService,
         private userService: UserService,
         private sortingService: SortingService,
         private updateDialog: MatDialog
-    ) { }
-    
+    ) {}
+
     ngAfterViewInit(): void {
         this.userService
-            .get()
+            .list()
             .subscribe((result: User[]) => {
                 this.userList.data = result;
                 this.userList.sort = this.sort;
                 this.userList.sortData = this.sortingService.sort;
             });
     }
-    
-    delete(user: User) 
-    {
+
+    delete(user: User) {
         this.dialogService
             .confirm('Potwierdź usunięcie')
             .subscribe((confirm: boolean) => {
@@ -73,16 +89,18 @@ export class UserComponent implements AfterViewInit
                     this.userService
                         .destroy(user)
                         .subscribe(() => {
-                            let index = this.userList.data.findIndex((item: User) => {return item.id == user.id});
+                            let index = this.userList.data.findIndex((item: User) => {
+                                return item.id === user.id
+                            });
                             this.userList.data.splice(index, 1);
                             this.userList.data = [...this.userList.data];
-                    });
-            }
-        });     
+                        });
+                }
+            });
     }
 
     edit(user: User) {
-        this.isSubmitted = new BehaviorSubject<any>({});
+        this.isSubmitted = new BehaviorSubject < any > ({});
         this.isSubmitted
             .asObservable()
             .subscribe((value: any) => {
@@ -92,20 +110,22 @@ export class UserComponent implements AfterViewInit
             });
         this.openDialog(user);
     }
-    
+
     update(user: User) {
         this.userService
             .update(user)
             .subscribe(() => {
                 this.closeDialog();
-                let index = this.userList.data.findIndex((item: User) => { return item.id == user.id });
+                let index = this.userList.data.findIndex((item: User) => {
+                    return item.id === user.id
+                });
                 this.userList.data[index] = user;
                 this.userList.data = [...this.userList.data];
             });
     }
 
     create() {
-        this.isSubmitted = new BehaviorSubject<any>({});
+        this.isSubmitted = new BehaviorSubject < any > ({});
         this.isSubmitted
             .asObservable()
             .subscribe((value: any) => {
@@ -115,7 +135,7 @@ export class UserComponent implements AfterViewInit
             });
         this.openDialog(new User());
     }
-    
+
     store(user: User) {
         this.userService
             .store(user)
@@ -124,9 +144,9 @@ export class UserComponent implements AfterViewInit
                 this.userList.data = [...this.userList.data, new User(value)];
             });
     }
-    
+
     openDialog(user: User) {
-       this.dialogRef = this.updateDialog.open(UserDialog, {
+        this.dialogRef = this.updateDialog.open(UserDialog, {
             data: {
                 model: user,
                 isSubmitted: this.isSubmitted
@@ -134,7 +154,7 @@ export class UserComponent implements AfterViewInit
             panelClass: 'modalbox'
         });
     }
-    
+
     closeDialog() {
         this.dialogRef.close();
     }
@@ -142,60 +162,55 @@ export class UserComponent implements AfterViewInit
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.userList.filter = filterValue.trim().toLowerCase();
-  }
+    }
 }
 
 @Component({
     templateUrl: './templates/user.update.html'
 })
-export class UserDialog 
-{
+export class UserDialog {
     public userForm: FormGroup;
-    private isSubmitted: BehaviorSubject<any>;
+    private isSubmitted: BehaviorSubject < any > ;
 
     constructor(
         private formBuilder: FormBuilder,
-        private dialogRef : MatDialogRef<UserDialog>,
+        private dialogRef: MatDialogRef < UserDialog > ,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         this.userForm = this.formBuilder.group({
             'id': [
                 this.data.model.id,
                 Validators.required
-                ],
+            ],
             'firstname': [
                 this.data.model.firstname,
                 Validators.required
-                ],
+            ],
             'lastname': [
                 this.data.model.lastname,
                 Validators.required
-                ],
+            ],
             'email': [
                 this.data.model.email,
                 Validators.required
-                ],
+            ],
             'password': [
                 this.data.model.password,
-                ],
+            ],
         });
         this.isSubmitted = this.data.isSubmitted;
     };
-    
-    cancel() 
-    {
+
+    cancel() {
         this.dialogRef.close();
     };
-    
-    noValidate(field: string): boolean 
-    {
+
+    noValidate(field: string): boolean {
         return !this.userForm.get(field).valid && this.userForm.get(field).touched;
     }
-    
-    onSubmit(value: any) 
-    {
+
+    onSubmit(value: any) {
         let user = new User(value);
         this.isSubmitted.next(user);
     }
 }
-

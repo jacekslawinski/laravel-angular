@@ -1,21 +1,42 @@
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
-import { AuthService } from '@app/jwt/auth/auth.service';
-import { HTTP_ERRORS } from '@app/common/appsettings/appsettings';
-import { Router } from '@angular/router';
-import { DialogService } from '@app/common/dialogs/dialog.service';
+import {
+    Injectable
+} from '@angular/core';
+import {
+    HttpRequest,
+    HttpHandler,
+    HttpEvent,
+    HttpInterceptor,
+    HttpErrorResponse
+} from '@angular/common/http';
+import {
+    Observable,
+    throwError
+} from 'rxjs';
+import {
+    catchError,
+    switchMap
+} from 'rxjs/operators';
+import {
+    AuthService
+} from '@app/jwt/auth/auth.service';
+import {
+    HTTP_ERRORS
+} from '@app/common/appsettings/appsettings';
+import {
+    Router
+} from '@angular/router';
+import {
+    DialogService
+} from '@app/common/dialogs/dialog.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-
     constructor(
         private authService: AuthService,
         private router: Router,
-        private dialogService: DialogService) { }
+        private dialogService: DialogService) {}
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(request: HttpRequest < any > , next: HttpHandler): Observable < HttpEvent < any >> {
         let jwtToken = this.authService.getJwtToken();
         if (jwtToken !== null) {
             request = this.addToken(request, jwtToken);
@@ -40,7 +61,7 @@ export class JwtInterceptor implements HttpInterceptor {
             }));
     }
 
-    private addToken(request: HttpRequest<any>, token: string) {
+    private addToken(request: HttpRequest < any > , token: string) {
         return request.clone({
             setHeaders: {
                 'Authorization': `Bearer ${token}`
@@ -48,7 +69,7 @@ export class JwtInterceptor implements HttpInterceptor {
         });
     }
 
-    private handleUnauthorizedError(request: HttpRequest<any>, next: HttpHandler) {
+    private handleUnauthorizedError(request: HttpRequest < any > , next: HttpHandler) {
         return this.authService
             .refreshToken()
             .pipe(
@@ -59,8 +80,8 @@ export class JwtInterceptor implements HttpInterceptor {
                 catchError(this.handleForbiddenError)
             );
     }
-    
-    private handleForbiddenError(error: Response|any) {
+
+    private handleForbiddenError(error: Response | any) {
         this.router.navigate(['login']);
         return throwError(error);
     }

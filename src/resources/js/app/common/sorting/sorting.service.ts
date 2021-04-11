@@ -1,16 +1,19 @@
-import { Injectable } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
+import {
+    Injectable
+} from '@angular/core';
+import {
+    MatSort
+} from '@angular/material/sort';
 import moment from 'moment';
 
 @Injectable({
-    providedIn : 'root'
+    providedIn: 'root'
 })
-export class SortingService 
-{
+export class SortingService {
     sort(data: any[], sort: MatSort): any[] {
         const active = sort.active;
         const direction = sort.direction;
-        if (!active || direction == '') { 
+        if (!active || direction == '') {
             return data;
         }
         return data.sort((a, b) => {

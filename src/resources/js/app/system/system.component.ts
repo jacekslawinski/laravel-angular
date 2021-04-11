@@ -1,4 +1,4 @@
-import { 
+import {
     Component,
     Inject,
     AfterViewInit,
@@ -9,8 +9,12 @@ import {
     MatDialogRef,
     MAT_DIALOG_DATA
 } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import {
+    MatTableDataSource
+} from '@angular/material/table';
+import {
+    MatSort
+} from '@angular/material/sort';
 import {
     FormBuilder,
     FormGroup,
@@ -20,50 +24,62 @@ import {
     faEdit,
     faTrash
 } from '@fortawesome/free-solid-svg-icons';
-import { BehaviorSubject } from 'rxjs';
-import { DialogService } from '@app/common/dialogs/dialog.service';
-import { APP_SELECTORS } from '@app/common/appsettings/appsettings';
-import { SortingService } from '@app/common/sorting/sorting.service';
-import { SystemService } from './system.service';
-import { System } from './system.model';
+import {
+    BehaviorSubject
+} from 'rxjs';
+import {
+    DialogService
+} from '@app/common/dialogs/dialog.service';
+import {
+    APP_SELECTORS
+} from '@app/common/appsettings/appsettings';
+import {
+    SortingService
+} from '@app/common/sorting/sorting.service';
+import {
+    SystemService
+} from './system.service';
+import {
+    System
+} from './system.model';
 
 @Component({
     selector: APP_SELECTORS.SYSTEM,
     templateUrl: './templates/system.list.html'
 })
-export class SystemComponent implements AfterViewInit
-{
+export class SystemComponent implements AfterViewInit {
     public updateIcon = faEdit;
     public deleteIcon = faTrash;
-    private isSubmitted: BehaviorSubject<any>;
-    private dialogRef: MatDialogRef<SystemDialog>;
+    private isSubmitted: BehaviorSubject < any > ;
+    private dialogRef: MatDialogRef < SystemDialog > ;
     public displayedColumns: string[] = [
         'action',
         'name',
     ];
-    public systemList = new MatTableDataSource<System>();
+    public systemList = new MatTableDataSource < System > ();
 
-    @ViewChild(MatSort, {static: false}) sort: MatSort;
+    @ViewChild(MatSort, {
+        static: false
+    }) sort: MatSort;
 
     constructor(
         private dialogService: DialogService,
         private systemService: SystemService,
         private sortingService: SortingService,
         private updateDialog: MatDialog
-    ) { }
-    
+    ) {}
+
     ngAfterViewInit(): void {
         this.systemService
-            .get()
+            .list()
             .subscribe((result: System[]) => {
                 this.systemList.data = result;
                 this.systemList.sort = this.sort;
                 this.systemList.sortData = this.sortingService.sort;
             });
     }
-    
-    delete(system: System) 
-    {
+
+    delete(system: System) {
         this.dialogService
             .confirm('Potwierdź usunięcie')
             .subscribe((confirm: boolean) => {
@@ -71,16 +87,18 @@ export class SystemComponent implements AfterViewInit
                     this.systemService
                         .destroy(system)
                         .subscribe(() => {
-                            let index = this.systemList.data.findIndex((item: System) => {return item.id == system.id});
+                            let index = this.systemList.data.findIndex((item: System) => {
+                                return item.id === system.id
+                            });
                             this.systemList.data.splice(index, 1);
                             this.systemList.data = [...this.systemList.data];
-                    });
-            }
-        });     
+                        });
+                }
+            });
     }
 
     edit(system: System) {
-        this.isSubmitted = new BehaviorSubject<any>({});
+        this.isSubmitted = new BehaviorSubject < any > ({});
         this.isSubmitted
             .asObservable()
             .subscribe((value: any) => {
@@ -90,20 +108,22 @@ export class SystemComponent implements AfterViewInit
             });
         this.openDialog(system);
     }
-    
+
     update(system: System) {
         this.systemService
             .update(system)
             .subscribe(() => {
                 this.closeDialog();
-                let index = this.systemList.data.findIndex((item: System) => { return item.id == system.id });
+                let index = this.systemList.data.findIndex((item: System) => {
+                    return item.id === system.id
+                });
                 this.systemList.data[index] = system;
                 this.systemList.data = [...this.systemList.data];
             });
     }
 
     create() {
-        this.isSubmitted = new BehaviorSubject<any>({});
+        this.isSubmitted = new BehaviorSubject < any > ({});
         this.isSubmitted
             .asObservable()
             .subscribe((value: any) => {
@@ -113,7 +133,7 @@ export class SystemComponent implements AfterViewInit
             });
         this.openDialog(new System());
     }
-    
+
     store(system: System) {
         this.systemService
             .store(system)
@@ -122,9 +142,9 @@ export class SystemComponent implements AfterViewInit
                 this.systemList.data = [...this.systemList.data, new System(value)];
             });
     }
-    
+
     openDialog(system: System) {
-       this.dialogRef = this.updateDialog.open(SystemDialog, {
+        this.dialogRef = this.updateDialog.open(SystemDialog, {
             data: {
                 model: system,
                 isSubmitted: this.isSubmitted
@@ -132,7 +152,7 @@ export class SystemComponent implements AfterViewInit
             panelClass: 'modalbox'
         });
     }
-    
+
     closeDialog() {
         this.dialogRef.close();
     }
@@ -146,43 +166,38 @@ export class SystemComponent implements AfterViewInit
 @Component({
     templateUrl: './templates/system.update.html'
 })
-export class SystemDialog 
-{
+export class SystemDialog {
     public systemForm: FormGroup;
-    private isSubmitted: BehaviorSubject<any>;
+    private isSubmitted: BehaviorSubject < any > ;
 
     constructor(
         private formBuilder: FormBuilder,
-        private dialogRef : MatDialogRef<SystemDialog>,
+        private dialogRef: MatDialogRef < SystemDialog > ,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         this.systemForm = this.formBuilder.group({
             'id': [
                 this.data.model.id,
                 Validators.required
-                ],
+            ],
             'name': [
                 this.data.model.name,
                 Validators.required
-                ],
+            ],
         });
         this.isSubmitted = this.data.isSubmitted;
     };
-    
-    cancel() 
-    {
+
+    cancel() {
         this.dialogRef.close();
     };
-    
-    noValidate(field: string): boolean 
-    {
+
+    noValidate(field: string): boolean {
         return !this.systemForm.get(field).valid && this.systemForm.get(field).touched;
     }
-    
-    onSubmit(value: any) 
-    {
+
+    onSubmit(value: any) {
         let system = new System(value);
         this.isSubmitted.next(system);
     }
 }
-

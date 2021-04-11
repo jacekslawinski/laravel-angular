@@ -58,9 +58,8 @@ final class UpdateOperation extends AbstractOperation
             $hardware = DB::transaction(function () use ($input) {
                 $hardware = $this->hardwareRepository->getById($input['id']);
                 $this->hardwareRepository->update($hardware, $input);
-                return $hardware;
             });
-            return $this->runResponse(new RespondSuccessJson('success', $hardware));
+            return $this->runResponse(new RespondSuccessJson('success'));
         } catch (ModelNotFoundException $e) {
             return $this->runResponse(new RespondBadRequestJson('Nie znaleziono hardware'));
         } catch (QueryException $e) {
